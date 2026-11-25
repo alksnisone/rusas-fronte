@@ -25,6 +25,19 @@ canvas#c{display:block;width:100%;height:100%;object-fit:contain;cursor:crosshai
   linear-gradient(180deg,#1d1914f2,#120f0cf2 60%,#0b0a08f5)}
 .ov.mid{align-items:center;justify-content:center;padding:16px;background:#000000b8}
 .hide{display:none!important}
+#menu{overflow:hidden}#menu .body{flex:1 1 0;min-height:0;overflow:auto}
+#chatp{flex:0 0 196px;display:flex;flex-direction:column;gap:0;margin:0;padding:0 8px 6px;background:linear-gradient(#00000059,#0000008c);border-top:1px solid #000;box-shadow:inset 0 1px 0 #ffffff0d}
+.chh{display:flex;align-items:center;gap:8px;height:30px;justify-content:flex-end;border-bottom:1px solid #00000080}.chh .clk{flex:1;text-align:center;font:600 19px 'Barlow Condensed',sans-serif;color:#f39a2a;letter-spacing:.5px}
+.chh label{font:600 16px 'Barlow Condensed',sans-serif;color:var(--ink)}.chh input{width:220px;min-height:24px;height:24px}.chh button{min-height:24px;height:24px;width:110px;background:linear-gradient(#6a4421,#3c2410);color:#e8c9a0}
+.chm{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:6px;flex:1;min-height:0}
+#chatp .log{height:auto;min-height:0;grid-column:auto;background:#0000002e;padding:4px 10px;font:500 16px/1.45 Barlow,sans-serif}
+.log .cm{color:#bdb4a4;font-size:14px}.log .mod{color:#ff3a2a;font:400 13px 'Black Ops One',Impact,sans-serif;letter-spacing:.5px}.log b{font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:.3px}.log small{color:var(--mute)}
+.chs{display:flex;flex-direction:column;gap:2px}.chs>button{min-height:22px;height:22px;font:600 15px 'Barlow Condensed',sans-serif;background:#000;color:#f3eee4}.chs>button.on{background:linear-gradient(#5a3a1d,#3a2410);color:#b9946a}
+.emo{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;padding:2px 0}.emo button{min-height:22px;height:22px;padding:0;font-size:15px;line-height:1;background:none;box-shadow:none;border:0}.emo button:hover{background:#ffffff14}
+.chi{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:6px;margin-top:4px}.chi input{min-height:28px;height:28px}.chi button{min-height:28px;height:28px}
+#rflt{font:600 15px 'Barlow Condensed',sans-serif;height:34px;background:linear-gradient(#1d1d1d,#050505);color:#f0a530;border:1px solid #000;padding:0 8px}
+#t-kauja .rooms{min-height:160px}#t-kauja .grid{min-height:0}
+
 .bar1{display:flex;align-items:center;gap:4px;padding:0 6px;height:38px;flex:0 0 auto;background:linear-gradient(#1b1b1b,#050505);border-bottom:1px solid #000;font:700 16px 'Barlow Condensed',sans-serif}
 .bar1>*{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-right:1px solid #2a2a2a}
 .bar1 .lg{font:400 19px 'Black Ops One',Impact,sans-serif;color:var(--amber);letter-spacing:.5px;text-shadow:0 1px 0 #000}
@@ -196,14 +209,13 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
    <div>
     <div class="box rooms"><table><thead><tr><th>Istaba</th><th>Karte</th><th>Režīms</th><th class="num">Spēlētāji</th><th class="num">Līmenis</th></tr></thead><tbody id="rl"></tbody></table></div>
     <div class="acts"><div class="grow hide" id="difw"><span class="lbl" style="margin:0">Botu prasme</span><div class="seg" id="dif"><button data-v="0">Viegli</button><button data-v="1" class="on">Normāli</button><button data-v="2">Grūti</button></div></div>
-     <button id="quick">Ātrā spēle</button><button class="go" id="go">Pievienoties</button></div>
+     <select id="rflt" aria-label="Filtrēt pēc režīma"><option value="-1">Visi režīmi</option><option value="0">Komandu cīņa</option><option value="1">Visi pret visiem</option><option value="2">Karogs</option><option value="3">Izdzīvošana</option></select><button id="rref">Atjaunot</button><button id="rall">Rādīt visus</button><span class="grow"></span><button id="quick">Ātrā spēle</button><button class="go" id="go">Pievienoties</button></div>
    </div>
    <div class="rside">
     <div><canvas class="prev" id="pv" width="320" height="200"></canvas><div class="rpl" id="rpl"></div></div>
     <div><div class="plh" id="plh">Tiešsaistē</div><div class="box plist" id="pl"></div></div>
    </div>
   </div>
-  <div class="chat"><div class="box log" id="log" aria-live="polite"></div><input id="ci" maxlength="140" placeholder="Raksti visiem tiešsaistē…" autocomplete="off"><span class="acts" style="margin:0;flex-wrap:nowrap"><button id="pmx" class="hide" title="Atcelt privāto ziņu">✕ Privāti</button><button id="cs">Sūtīt</button></span></div>
  </section>
  <section id="t-prof" class="hide"><div class="pgrid">
   <div class="skinbox"><div class="skt">Tērps</div><canvas id="skc" width="300" height="330"></canvas>
@@ -235,6 +247,12 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
   <h3>Klani</h3><div class="box rooms" style="max-height:180px"><table><thead><tr><th>#</th><th>Klans</th><th class="num">Biedri</th><th class="num">Kopā XP</th></tr></thead><tbody id="clb"></tbody></table></div>
   <h3>Tavas labākās kaujas</h3><div class="box rooms"><table><thead><tr><th>#</th><th>Režīms</th><th>Karte</th><th>Rezultāts</th><th class="num">Nog./Krita</th><th class="num">XP</th></tr></thead><tbody id="hl"></tbody></table></div>
  </section>
+ </div>
+<div class="chat" id="chatp">
+  <div class="chh"><span class="clk" id="clock"></span><label for="cfind">ID:</label><input id="cfind" maxlength="14" placeholder="Spēlētāja segvārds" autocomplete="off"><button id="cfb">Meklēt</button></div>
+  <div class="chm"><div class="box log" id="log" aria-live="polite"></div>
+   <div class="chs"><button id="chpv">Privāti</button><button id="chgn" class="on">Vispārīgi</button><div class="emo" id="emo"></div><button id="pmx" class="hide" title="Atcelt privāto ziņu">✕ Privāti</button></div></div>
+  <div class="chi"><input id="ci" maxlength="140" placeholder="Raksti visiem tiešsaistē…" autocomplete="off"><button class="go" id="cs">Sūtīt</button></div>
  </div>
 </div>
 <div class="ov mid hide" id="end"><div class="card">
@@ -497,10 +515,10 @@ function lobbyPres(){if(!RM)return;RM.presence({n:SV.name,c:SV.clan,bd:SV.body,h
 (async()=>{await 0;try{RM=window.claude&&window.claude.use?await window.claude.use('room'):null}catch(e){RM=null}
  if(!RM){await SBP;if(SB)try{RM=sbRoom('lobby',false)}catch(e){RM=null}}
  if(!RM){$('onl').textContent='Tiešsaiste nav pieejama';sysChat('Tiešsaistes istabas strādā claude.ai vai tīmekļa versijā ar datubāzi. Viens spēlētājs strādā vienmēr.');renderRooms();return}
- RM.onPeers(ch=>{lobbyPeers=ch.peers;for(const p of ch.peers)if(p.isMe&&p.sameTab)myLobbyPeer=p.peer;for(const p of ch.peers){const c=p.presence&&p.presence.chat;if(c&&typeof c.t==='string'&&num(c.ts,0)&&!seenChat.has(p.peer+':'+c.ts)){seenChat.add(p.peer+':'+c.ts);const mine=p.isMe&&p.sameTab;if(c.to&&!mine&&c.to!==myLobbyPeer)continue;const tn=c.to?(lobbyPeers.find(q=>q.peer===c.to)||{}).presence:null;chatLog.push({n:String(p.presence.n||'Karavīrs').slice(0,14)+(c.to?(mine?' → '+String(tn&&tn.n||'?').slice(0,14):' → tev'):''),t:c.t.slice(0,140),me:mine,pm:!!c.to})}}
+ RM.onPeers(ch=>{lobbyPeers=ch.peers;for(const p of ch.peers)if(p.isMe&&p.sameTab)myLobbyPeer=p.peer;for(const p of ch.peers){const c=p.presence&&p.presence.chat;if(c&&typeof c.t==='string'&&num(c.ts,0)&&!seenChat.has(p.peer+':'+c.ts)){seenChat.add(p.peer+':'+c.ts);const mine=p.isMe&&p.sameTab;if(c.to&&!mine&&c.to!==myLobbyPeer)continue;const tn=c.to?(lobbyPeers.find(q=>q.peer===c.to)||{}).presence:null;chatLog.push({ts:num(c.ts,Date.now()),xp:num(p.presence.xp,0),n:String(p.presence.n||'Karavīrs').slice(0,14)+(c.to?(mine?' → '+String(tn&&tn.n||'?').slice(0,14):' → tev'):''),t:c.t.slice(0,140),me:mine,pm:!!c.to})}}
   chatLog=chatLog.slice(-80);renderNet()},e=>{$('onl').textContent='Tiešsaiste nav pieejama'});
  RM.onConnection(c=>{$('onl').textContent=c?`${Math.max(1,lobbyPeers.filter(p=>p.kind==='viewer').length)} TIEŠSAISTĒ`:'Savienojas…'},()=>{});lobbyPres();sysChat('Esi vestibilā. Izvēlies istabu un spied „Pievienoties”.')})();
-function sysChat(t){chatLog.push({n:'',t,sys:1});renderChat()}
+function sysChat(t){chatLog.push({n:'',t,sys:1,ts:Date.now()});renderChat()}
 let pmTo=null,pmName='',myLobbyPeer='';
 function sendChat(){const v=$('ci').value.trim().slice(0,140);if(!v)return;$('ci').value='';if(!RM){sysChat('Čats strādā tikai tiešsaistē.');return}myChat=pmTo?{t:v,ts:Date.now(),to:pmTo}:{t:v,ts:Date.now()};lobbyPres()}
 function setPM(peer,name){pmTo=peer;pmName=name;$('ci').placeholder=peer?`Privāti → ${name} (Esc, lai atceltu)`:'Raksti visiem tiešsaistē…';$('pmx').classList.toggle('hide',!peer);if(peer)$('ci').focus()}
@@ -922,7 +940,7 @@ function drawHud(){const HH=SV.opt.hh===1&&state==='play';if(HH)g.globalAlpha=0;
   inset(180,11,60,24);txt(String(r.i),210,29,16,'#ece6d8','center');
   icDraw('coin',249,10,26);
   inset(280,11,100,24);txt(String(SV.coins),330,29,16,'#ece6d8','center');icDraw('note',385,10,26);inset(414,11,60,24);txt(String(SV.notes|0),444,29,16,'#9be05a','center');
-  txt(net?`${ONL[onlRoom][0]} : ${MAP.n} | tiešsaistē ${1+RS.size}`:`${MAP.n} : viens spēlētājs | ${r.n}`,14,70,18,'#9be05a')}
+  {const d=new Date(),dt=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()} ${hhmm()}`;txt(net?`${ONL[onlRoom][0]} : ${MAP.n} | tiešsaistē ${1+RS.size} | ${dt}`:`${MAP.n} : viens spēlētājs | ${r.n} | ${dt}`,14,70,18,'#9be05a')}}
  feed.forEach((f,i)=>{const y=34+i*26;g.globalAlpha=Math.min(1,f.t*2);g.font='700 17px "Barlow Condensed",sans-serif';const wb=g.measureText(f.b).width,ww=g.measureText(` ${f.w} `).width;
   txt(f.b,VW-20,y,17,f.bc,'right');txt(` ${f.w} `,VW-20-wb,y,17,'#ece6d8','right');txt(f.a,VW-20-wb-ww,y,17,f.ac,'right');g.globalAlpha=1});
  if(banner){g.globalAlpha=Math.min(1,banner.l*2);txt(banner.t,VW/2,170,44,'#ece6d8','center');txt(banner.sub,VW/2,200,20,'#9fada8','center');g.globalAlpha=1}
@@ -976,8 +994,8 @@ const ptsTotal=()=>rankInfo(SV.xp).i,ptsFree=()=>ptsTotal()-SKL.reduce((a,[k])=>
 function renderTop(){const r=rankInfo(SV.xp);$('rk').innerHTML=`${ICO.star(lvc(r.i))} ${r.i} · ${esc(r.n)}`;$('xp').innerHTML=ICO.xp()+' '+(r.nx?`${SV.xp} / ${r.nx[0]}`:`${SV.xp} · maks.`);$('xpb').style.width=Math.round(r.p*100)+'%';$('cn').innerHTML=ICO.coin()+' '+(SV.coins|0);$('nt').innerHTML=ICO.note()+' '+(SV.notes|0);$('sndb').innerHTML=ICO.snd(SV.opt.snd);$('sndb').title=SV.opt.snd?'Skaņa ieslēgta':'Skaņa izslēgta'}
 function roomCount(i){return lobbyPeers.filter(p=>p.presence&&p.presence.where==='r'+i).length}
 function renderRooms(){const on=flt==='on';$('difw').classList.toggle('hide',on);$('go').textContent=on?'Pievienoties':'Sākt kauju';
- $('rl').innerHTML=on?ONL.map((r,i)=>`<tr data-i="${i}" tabindex="0" class="${i===room?'sel':''}"><td>${esc(r[0])}</td><td>${MAPS[r[1]].n}</td><td><span class="tag">${MODES[r[2]].s}</span> ${MODES[r[2]].n}</td><td class="num">${RM?roomCount(i)+' / 8':'0 / 8'}</td><td class="num lvr">${ICO.star(lvc(ONLV[i][0]))}${ONLV[i][0]}–${ICO.star(lvc(ONLV[i][1]))}${ONLV[i][1]}</td></tr>`).join('')
-  :ROOMS.map((r,i)=>`<tr data-i="${i}" tabindex="0" class="${i===room?'sel':''}"><td>${esc(r[0])}</td><td>${MAPS[r[1]].n}</td><td><span class="tag">${MODES[r[2]].s}</span> ${MODES[r[2]].n}</td><td class="num">${r[2]===1?r[3]+' boti':r[2]===3?r[3]+' + viļņi':r[3]+' pret '+r[3]}</td><td class="num lvr">${ICO.star(lvc(0))}0–${ICO.star(lvc(70))}70</td></tr>`).join('');
+ const rf=+($('rflt').value||-1);$('rl').innerHTML=on?ONL.map((r,i)=>rf>=0&&r[2]!==rf?'':`<tr data-i="${i}" tabindex="0" class="${i===room?'sel':''}"><td>${esc(r[0])}</td><td>${MAPS[r[1]].n}</td><td><span class="tag">${MODES[r[2]].s}</span> ${MODES[r[2]].n}</td><td class="num">${RM?roomCount(i)+' / 8':'0 / 8'}</td><td class="num lvr">${ICO.star(lvc(ONLV[i][0]))}${ONLV[i][0]}–${ICO.star(lvc(ONLV[i][1]))}${ONLV[i][1]}</td></tr>`).join('')
+  :ROOMS.map((r,i)=>rf>=0&&r[2]!==rf?'':`<tr data-i="${i}" tabindex="0" class="${i===room?'sel':''}"><td>${esc(r[0])}</td><td>${MAPS[r[1]].n}</td><td><span class="tag">${MODES[r[2]].s}</span> ${MODES[r[2]].n}</td><td class="num">${r[2]===1?r[3]+' boti':r[2]===3?r[3]+' + viļņi':r[3]+' pret '+r[3]}</td><td class="num lvr">${ICO.star(lvc(0))}0–${ICO.star(lvc(70))}70</td></tr>`).join('');
  const sel=on?ONL[room]:ROOMS[room];if(sel)preview($('pv'),sel[1]);
  const rp=on?lobbyPeers.filter(p=>p.kind==='viewer'&&p.presence&&p.presence.where==='r'+room):[];
  $('rpl').innerHTML=on?(rp.length?rp.map(p=>{const q=p.presence;return`<div><span>${typeof q.c==='string'&&q.c?`<b class="ct">[${esc(q.c.slice(0,4))}]</b>`:''}${esc(String(q.n||'Karavīrs').slice(0,14))}</span>${lvTag(q.xp)}</div>`}).join(''):'<small>Istaba ir tukša. Pievienojies pirmais.</small>'):`<small>${sel?(sel[2]===1?sel[3]+' boti':sel[2]===3?'Tava komanda pret viļņiem':sel[3]+' pret '+sel[3]+' ar botiem'):''}</small>`}
@@ -990,7 +1008,8 @@ function preview(c,mi){const x=c.getContext('2d'),sv={MAP,R,PK,SOL,FAR,MID,cx:ca
 function renderNet(){renderRooms();renderChat();$('onl').textContent=RM?`${Math.max(1,lobbyPeers.filter(p=>p.kind==='viewer').length)} TIEŠSAISTĒ`:'Tiešsaiste nav pieejama';
  const pl=lobbyPeers.filter(p=>p.kind==='viewer');$('plh').textContent=`Tiešsaistē · ${pl.length}`;
  $('pl').innerHTML=pl.length?pl.map(p=>{const q=p.presence||{},w=typeof q.where==='string'&&/^r\d+$/.test(q.where)?ONL[+q.where.slice(1)]:null;return`<div class="pli" data-peer="${esc(p.peer)}" tabindex="0"><span><b class="dot"></b>${typeof q.c==='string'&&q.c?`<b class="ct">[${esc(q.c.slice(0,4))}]</b>`:''}${esc(String(q.n||'Karavīrs').slice(0,14))}${p.isMe&&p.sameTab?' (tu)':''}${p.guest?' · viesis':''} <small>${w?'· '+esc(w[0]):'· vestibilā'}</small></span>${lvTag(q.xp)}</div>`}).join(''):'<div><small>Neviens nav tiešsaistē. Padalies ar spēles saiti, lai draugi var pievienoties.</small></div>';renderHof()}
-function renderChat(){const l=$('log');l.innerHTML=chatLog.slice(-60).map(c=>c.sys?`<div class="sys">${esc(c.t)}</div>`:`<div class="${c.pm?'pm':''}"><b>${esc(c.n)}${c.me&&!c.pm?' (tu)':''}:</b> ${esc(c.t)}</div>`).join('');l.scrollTop=l.scrollHeight}
+const hhmm=t=>{const d=new Date(t||Date.now());return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};let chOnlyPM=false;
+function renderChat(){const l=$('log');const L=chatLog.slice(-80).filter(c=>!chOnlyPM||c.pm);l.innerHTML=L.length?L.map(c=>c.sys?`<div class="sys"><span class="mod">[SISTĒMA]</span> ${esc(c.t)}</div>`:`<div class="${c.pm?'pm':''}"><b>${esc(c.n)}</b>${c.me&&!c.pm?' <small>(tu)</small>':''} <span class="cm">[${rankInfo(c.xp).i}] [${hhmm(c.ts)}]</span> ${esc(c.t)}</div>`).join(''):`<div class="cm">${chOnlyPM?'Privātu ziņu vēl nav. Uzspied uz spēlētāja, lai rakstītu viņam.':''}</div>`;l.scrollTop=l.scrollHeight}
 function renderProf(){const s=SV.st;$('nm').value=SV.name;$('cl').value=SV.clan||'';renderBody();renderWeps();renderChal();
  $('pst').innerHTML=[[s.g,'Kaujas'],[s.w,'Uzvaras'],[s.k,'Nogalināti'],[s.d,'Krita'],[(s.k/Math.max(1,s.d)).toFixed(2),'N/K attiecība'],[s.best,'Labākā sērija'],[s.caps,'Sagrābti karogi'],[s.wave,'Augstākais vilnis']].map(([v,l])=>`<div><b>${esc(v)}</b>${l}</div>`).join('');
  const fr=ptsFree();$('skh').textContent=`Prasmes · ${fr} brīvi punkti`;
@@ -1091,7 +1110,31 @@ $('rl').addEventListener('dblclick',()=>start());
 $('rl').addEventListener('keydown',e=>{const tr=e.target.closest('tr');if(tr&&e.key==='Enter'){room=+tr.dataset.i;start()}});
 $('cl').addEventListener('input',e=>{SV.clan=e.target.value.replace(/[^A-Za-z0-9ĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž]/g,'').slice(0,4);save();lobbyPres()});
 $('nm').addEventListener('input',e=>{if(ACC){e.target.value=SV.name;return}SV.name=e.target.value.trim().slice(0,14)||'Karotājs';save();lobbyPres();renderHof()});
+
+// vestibila fons: rūsas metāla tekstūra ar oriģinālu zobrata emblēmu
+(function menuBG(){try{const W=960,H=540,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');if(!x||!x.createImageData)return;
+ let sd=7;const R=()=>(sd=(sd*16807)%2147483647)/2147483647;
+ const g0=x.createLinearGradient(0,0,0,H);g0.addColorStop(0,'#3a2817');g0.addColorStop(.55,'#2a1c10');g0.addColorStop(1,'#140d07');x.fillStyle=g0;x.fillRect(0,0,W,H);
+ for(let i=0;i<70;i++){const r=20+R()*120,px=R()*W,py=R()*H,gr=x.createRadialGradient(px,py,0,px,py,r);const a=(.05+R()*.12).toFixed(2);gr.addColorStop(0,R()<.5?`rgba(120,62,22,${a})`:`rgba(8,5,2,${a})`);gr.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=gr;x.fillRect(px-r,py-r,r*2,r*2)}
+ x.globalAlpha=.07;x.strokeStyle='#000';for(let i=0;i<260;i++){x.lineWidth=.5+R()*1.5;x.beginPath();const px=R()*W,py=R()*H,l=10+R()*60,a=R()*Math.PI;x.moveTo(px,py);x.lineTo(px+Math.cos(a)*l,py+Math.sin(a)*l);x.stroke()}
+ x.globalAlpha=1;
+ // emblēma: liels zobrats ar šautenes siluetu
+ const cx=W*.74,cy=H*.5,ro=180,ri=140;x.save();x.translate(cx,cy);x.globalAlpha=.16;x.fillStyle='#0b0704';x.beginPath();
+ for(let i=0;i<24;i++){const a0=i/24*Math.PI*2,a1=a0+Math.PI/24;x.lineTo(Math.cos(a0)*ro,Math.sin(a0)*ro);x.lineTo(Math.cos(a0+.06)*ro,Math.sin(a0+.06)*ro);x.lineTo(Math.cos(a1)*ri,Math.sin(a1)*ri);x.lineTo(Math.cos(a1+Math.PI/24-.06)*ri,Math.sin(a1+Math.PI/24-.06)*ri)}
+ x.closePath();x.arc(0,0,92,0,Math.PI*2,true);x.fill('evenodd');x.globalAlpha=.12;x.strokeStyle='#d07a30';x.lineWidth=2;x.beginPath();x.arc(0,0,ri-8,0,Math.PI*2);x.stroke();
+ x.globalAlpha=.14;x.fillStyle='#0b0704';x.font="400 86px 'Black Ops One',Impact,sans-serif";x.textAlign='center';x.textBaseline='middle';x.fillText('RF',0,4);x.restore();
+ const id=x.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const n=(R()-.5)*26;d[i]+=n;d[i+1]+=n*.8;d[i+2]+=n*.6}x.putImageData(id,0,0);
+ const v=x.createRadialGradient(W/2,H/2,H*.3,W/2,H/2,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');x.fillStyle=v;x.fillRect(0,0,W,H);
+ const u=c.toDataURL('image/jpeg',.82);const m=document.getElementById('menu');if(m&&u.length>1000){m.style.background=`url(${u}) center/cover no-repeat, #1a120b`}}catch(e){}})();
 $('ci').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});$('cs').onclick=sendChat;
+{const EM=['😀','😂','😎','😡','😢','😮','👍','👎','🔥','💀','🎯','🏆'];$('emo').innerHTML=EM.map(e=>`<button data-e="${e}" aria-label="Emocijzīme ${e}">${e}</button>`).join('');
+ $('emo').onclick=e=>{const b=e.target.closest('button[data-e]');if(!b)return;const c=$('ci');c.value=(c.value+b.dataset.e).slice(0,140);c.focus()};
+ const pv=on=>{chOnlyPM=on;$('chpv').classList.toggle('on',on);$('chgn').classList.toggle('on',!on);renderChat()};$('chpv').onclick=()=>pv(true);$('chgn').onclick=()=>pv(false);
+ const tick=()=>{const d=new Date();$('clock').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()} ${hhmm()}`};tick();setInterval(tick,15000);
+ const find=()=>{const v=$('cfind').value.trim().toLowerCase();if(!v)return;const p=lobbyPeers.find(q=>!(q.isMe&&q.sameTab)&&q.presence&&String(q.presence.n||'').toLowerCase()===v)||lobbyPeers.find(q=>!(q.isMe&&q.sameTab)&&q.presence&&String(q.presence.n||'').toLowerCase().includes(v));
+  if(p){openPP(p.peer);$('cfind').value=''}else sysChat(RM?`Spēlētājs „${$('cfind').value.trim().slice(0,14)}” šobrīd nav tiešsaistē.`:'Meklēšana strādā tiešsaistē.')};
+ $('cfb').onclick=find;$('cfind').addEventListener('keydown',e=>{if(e.key==='Enter')find()});
+ $('rflt').onchange=()=>renderRooms();$('rref').onclick=()=>{renderNet();sysChat('Istabu saraksts atjaunots.')};$('rall').onclick=()=>{$('rflt').value='-1';renderRooms()}}
 $('skins').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;SV.skin=+b.dataset.s;save();renderProf()});
 $('skl').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b||ptsFree()<=0||sk(b.dataset.k)>=10)return;SV.sk[b.dataset.k]++;save();renderProf()});
 $('skr').onclick=()=>{for(const[k]of SKL)SV.sk[k]=0;save();renderProf()};

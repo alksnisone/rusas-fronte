@@ -379,7 +379,7 @@ const SBURL='https://korlnpzxoajflfiyazuv.supabase.co',SBKEY='sb_publishable_kPQ
 let SB=null;const SBME=(window.crypto&&crypto.randomUUID?crypto.randomUUID():'p'+Math.random().toString(36).slice(2)+Date.now().toString(36));
 const sbLoad=src=>new Promise((ok,no)=>{const e=document.createElement('script');e.src=src;e.onload=ok;e.onerror=no;document.head.appendChild(e)});
 const SBP=(async()=>{await 0;if(window.claude&&window.claude.use)return null;try{if(!window.supabase){try{await sbLoad('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js')}catch(e){await sbLoad('https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js')}}
- SB=window.supabase.createClient(SBURL,SBKEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'rf-sb-auth'},realtime:{params:{eventsPerSecond:20}}});return SB}catch(e){SB=null;return null}})();
+ SB=window.supabase.createClient(SBURL,SBKEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false},realtime:{params:{eventsPerSecond:20}}});return SB}catch(e){SB=null;return null}})();
 function sbRoom(name,fast){const ch=SB.channel('rf-'+name,{config:{presence:{key:SBME},broadcast:{self:false}}});
  let pcb=null,ccb=null,conn=false,last={},pend=null,pt=0,timer=0,tracked=false,prev=[],closed=false;const bc=new Map();
  const gst=()=>ACC!=='db';
@@ -401,37 +401,29 @@ function sbRoom(name,fast){const ch=SB.channel('rf-'+name,{config:{presence:{key
   async join(n){const r=sbRoom(n,true);try{await r.ready}catch(e){r.leave();throw e}return r},
   leave(){closed=true;clearTimeout(timer);return SB.removeChannel(ch)}};
  return R}
-const sbMail=async n=>{const h=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rusas-fronte:'+n.toLowerCase())));return 'p'+[...h].slice(0,16).map(b=>b.toString(16).padStart(2,'0')).join('')+'@rusasfronte.invalid'};
-async function sbLB(){if(!SB)return;try{const r=await SB.from('leaderboard').select('id,nick,clan,xp');if(r.error)throw r.error;LBDB=(r.data||[]).map(o=>({id:o.id,n:o.nick,c:o.clan,xp:o.xp}));renderHof()}
+let SBTOK='';const sbTok=()=>localStorage.getItem('rfsbtok')||sessionStorage.getItem('rfsbtok')||'';
+const sbErr=e=>{const m=String(e&&e.message||'');return /RF_TAKEN/.test(m)?'Šis segvārds jau ir aizņemts.':/RF_BAD/.test(m)?'Nepareizs segvārds vai parole.':/RF_NICK/.test(m)?'Segvārdam jābūt 3–14 burtiem vai cipariem.':/RF_PW/.test(m)?'Parolei jābūt 6–72 zīmēm.':/RF_SESSION/.test(m)?'Sesija beigusies. Ieej vēlreiz.':/rf_|function|schema|does not exist|404/i.test(m)?'Datubāze vēl nav uzstādīta: palaid jauno setup.sql.':'Neizdevās savienoties ar datubāzi. Mēģini vēlreiz.'};
+async function sbRpc(f,a){const r=await SB.rpc(f,a);if(r.error)throw r.error;return r.data}
+async function sbLB(){if(!SB)return;try{const r=await SB.from('rf_leaderboard').select('id,nick,clan,xp');if(r.error)throw r.error;LBDB=(r.data||[]).map(o=>({id:o.id,n:o.nick,c:o.clan,xp:o.xp}));renderHof()}
  catch(e){const st=$('lgdb');if(!UID){st.textContent='Datubāze vēl nav uzstādīta: palaid setup.sql Supabase SQL Editor.';st.className='lgdb off'}}}
-async function sbAcct(){const r=await SB.from('profiles').select('nick').eq('id',UID).maybeSingle();if(r.error)throw r.error;DBACC=r.data?{n:r.data.nick}:null}
 async function sbInit(){const st=$('lgdb');st.textContent='Datubāze: savienota. Konts strādās jebkurā datorā.';st.className='lgdb on';
  $('lgnote').textContent='Konts glabājas datubāzē: vajag tikai segvārdu un paroli, e-pastu neprasām. Paroles netiek glabātas, tikai to šifrēts nospiedums. Spēlē nav īstas naudas.';
- sbLB();setInterval(sbLB,30000);
- try{const{data}=await SB.auth.getSession();const u=data&&data.session&&data.session.user;if(!u)return;
-  if(localStorage.getItem('rfremdb')===u.id||sessionStorage.getItem('rfsess')===u.id){UID=u.id;await sbAcct();if(DBACC){$('lgn').value=DBACC.n;lgTab(0);if($('menu').classList.contains('hide'))await dbEnter()}}
-  else await SB.auth.signOut()}catch(e){}}
+ sbLB();setInterval(sbLB,30000);const t=sbTok();if(!t)return;
+ try{const a=await sbRpc('rf_session',{p_token:t});if(!a||!a.id){localStorage.removeItem('rfsbtok');sessionStorage.removeItem('rfsbtok');return}
+  SBTOK=t;UID=a.id;DBACC={n:a.nick};$('lgn').value=a.nick;lgTab(0);if($('menu').classList.contains('hide'))await dbEnter()}catch(e){}}
 async function sbSubmit(){const n=$('lgn').value.trim(),pw=$('lgp').value;
  if(!/^[\p{L}\p{N}_ .-]{3,14}$/u.test(n))return lgMsg('Segvārdam jābūt 3–14 burtiem vai cipariem.');if(pw.length<6)return lgMsg('Parolei jābūt vismaz 6 zīmēm.');
- $('lgok').disabled=true;try{const email=await sbMail(n);
-  if(lgMode){if(pw!==$('lgp2').value)return lgMsg('Paroles nesakrīt.');
-   const t=await SB.from('profiles').select('id').eq('nick_l',n.toLowerCase()).maybeSingle();if(t.error)throw t.error;if(t.data)return lgMsg('Šis segvārds jau ir aizņemts.');
-   const r=await SB.auth.signUp({email,password:pw});if(r.error)return lgMsg(/already|registered|exists/i.test(r.error.message)?'Šis segvārds jau ir aizņemts.':/password/i.test(r.error.message)?'Parole ir par vāju. Izvēlies garāku.':'Reģistrācija neizdevās: '+r.error.message);
-   if(!r.data.session)return lgMsg('Supabase prasa e-pasta apstiprinājumu. Izslēdz „Confirm email” (Authentication → Sign In / Providers → Email).');
-   UID=r.data.user.id;const pr=await SB.from('profiles').insert({id:UID,nick:n,nick_l:n.toLowerCase()});
-   if(pr.error){await SB.auth.signOut();UID=null;return lgMsg(pr.error.code==='23505'?'Šis segvārds jau ir aizņemts.':'Neizdevās izveidot profilu.')}
-   DBACC={n};const guest=localStorage.getItem('rf3');if(guest){try{await SB.from('saves').upsert({id:UID,data:JSON.parse(guest)})}catch(e){}}lgMsg('Konts izveidots datubāzē.',1)}
-  else{const r=await SB.auth.signInWithPassword({email,password:pw});if(r.error)return lgMsg(/invalid/i.test(r.error.message)?'Nepareizs segvārds vai parole.':/confirm/i.test(r.error.message)?'Konts nav apstiprināts: izslēdz „Confirm email” Supabase iestatījumos.':'Neizdevās: '+r.error.message);
-   UID=r.data.user.id;await sbAcct();if(!DBACC){DBACC={n};await SB.from('profiles').upsert({id:UID,nick:n,nick_l:n.toLowerCase()})}}
-  if($('lgrem').checked)localStorage.setItem('rfremdb',UID);else localStorage.removeItem('rfremdb');sessionStorage.setItem('rfsess',UID);
+ if(lgMode&&pw!==$('lgp2').value)return lgMsg('Paroles nesakrīt.');
+ $('lgok').disabled=true;try{const a=await sbRpc(lgMode?'rf_register':'rf_login',{p_nick:n,p_pw:pw});
+  SBTOK=a.token;UID=a.id;DBACC={n:a.nick};localStorage.removeItem('rfsbtok');sessionStorage.removeItem('rfsbtok');($('lgrem').checked?localStorage:sessionStorage).setItem('rfsbtok',SBTOK);
+  if(lgMode){const guest=localStorage.getItem('rf3');if(guest){try{await sbRpc('rf_save',{p_token:SBTOK,p_data:JSON.parse(guest),p_pub:null})}catch(e){}}lgMsg('Konts izveidots datubāzē.',1)}
   $('lgp').value='';$('lgp2').value='';await dbEnter()}
- catch(err){lgMsg('Neizdevās savienoties ar datubāzi. Pārbaudi, vai setup.sql ir palaists.')}finally{$('lgok').disabled=false}}
+ catch(err){lgMsg(sbErr(err))}finally{$('lgok').disabled=false}}
 const dbSaveRef=()=>DB.doc('data/users/'+UID+'/save'),dbAcctRef=()=>DB.doc('data/users/'+UID+'/acct'),dbPubRef=()=>DB.doc('players/'+UID);
 function dbQueue(){if(!(DB||SB)||!UID||ACC!=='db')return;clearTimeout(dbTimer);dbTimer=setTimeout(dbFlush,2500)}
 async function dbFlush(){if(!(DB||SB)||!UID||ACC!=='db'||dbBusy)return;dbBusy=true;const uid=UID;
  const j=JSON.stringify(SV),pub={n:SV.name,nl:SV.name.toLowerCase(),c:SV.clan||'',xp:SV.xp|0,bd:SV.body|0,st:{k:SV.st.k|0,d:SV.st.d|0,g:SV.st.g|0,w:SV.st.w|0,best:SV.st.best|0,caps:SV.st.caps|0,wave:SV.st.wave|0},sk:SV.sk},pj=JSON.stringify(pub);try{
- if(SB){if(j!==dbLast){const r=await SB.from('saves').upsert({id:uid,data:JSON.parse(j)});if(r.error)throw r.error;dbLast=j}
-  if(pj!==dbPubLast){const r=await SB.from('profiles').upsert({id:uid,nick:pub.n,nick_l:pub.nl,clan:pub.c,xp:pub.xp,lvl:Math.min(70,rankInfo(pub.xp).i),body:pub.bd,stats:pub.st,skills:pub.sk||{}});if(r.error)throw r.error;dbPubLast=pj}return}
+ if(SB){const tok=SBTOK;if(!tok||(j===dbLast&&pj===dbPubLast))return;await sbRpc('rf_save',{p_token:tok,p_data:j!==dbLast?JSON.parse(j):null,p_pub:pj!==dbPubLast?{clan:pub.c,xp:pub.xp,lvl:Math.min(70,rankInfo(pub.xp).i),body:pub.bd,stats:pub.st,skills:pub.sk||{}}:null});dbLast=j;dbPubLast=pj;return}
  if(j!==dbLast){await dbSaveRef().set({sv:j,t:Date.now()});dbLast=j}
  if(pj!==dbPubLast){await dbPubRef().set({...pub,t:Date.now()});dbPubLast=pj}
  }catch(e){if(e&&e.code==='invalid_argument'){$('lgdb').textContent='Datubāze: tev nav rakstīšanas tiesību, progress glabājas šajā pārlūkā.'}}finally{dbBusy=false}}
@@ -441,7 +433,7 @@ async function dbFlush(){if(!(DB||SB)||!UID||ACC!=='db'||dbBusy)return;dbBusy=tr
  try{const a=await dbAcctRef().get();DBACC=a.exists?a.data():null}catch(e){DBACC=null}
  if(DBACC&&typeof DBACC.n==='string'){$('lgn').value=DBACC.n;lgTab(0);if(localStorage.getItem('rfremdb')===UID&&$('menu').classList.contains('hide'))await dbEnter()}else if(!$('login').classList.contains('hide'))lgTab(1);
  DB.collection('players').orderBy('xp','desc').limit(100).onSnapshot(q=>{LBDB=q.docs.map(d=>({id:d.id,...d.data()}));renderHof()},()=>{})})();
-async function dbEnter(){let o=null;dbLast='';dbPubLast='';try{if(SB){const r=await SB.from('saves').select('data').eq('id',UID).maybeSingle();if(r.data&&r.data.data&&typeof r.data.data==='object')o=r.data.data}else{const d=await dbSaveRef().get();if(d.exists){o=JSON.parse(String(d.data().sv||'null'));dbLast=String(d.data().sv||'')}}}catch(e){}
+async function dbEnter(){let o=null;dbLast='';dbPubLast='';try{if(SB){const d=await sbRpc('rf_load',{p_token:SBTOK});if(d&&typeof d==='object'&&Object.keys(d).length)o=d}else{const d=await dbSaveRef().get();if(d.exists){o=JSON.parse(String(d.data().sv||'null'));dbLast=String(d.data().sv||'')}}}catch(e){}
  ACC='db';applySave(o);if(DBACC&&DBACC.n)SV.name=DBACC.n;try{localStorage.setItem('rf3:db',JSON.stringify(SV))}catch(e){}enterGame();dbQueue()}
 function useAcc(n){ACC=n?n.toLowerCase():null;let o=null;try{o=JSON.parse(localStorage.getItem(ACC?'rf3:'+ACC:'rf3')||'null')}catch(e){}applySave(o);if(n)SV.name=accs()[ACC]?accs()[ACC].n:n;save()}
 function addXP(n,noCh){const b=rankInfo(SV.xp).i;SV.xp+=n;if(!noCh)CH('xp',n);const a=rankInfo(SV.xp).i;if(a>b){const nt=(a-b)*5;SV.notes=(SV.notes|0)+nt;if(typeof say==='function'&&state==='play')say(`Līmenis ${a}`,`+${nt} banknotes`)}}
@@ -1155,7 +1147,7 @@ async function dbSubmit(){const n=$('lgn').value.trim(),pw=$('lgp').value;
  catch(err){lgMsg(err&&err.code==='invalid_argument'?'Datubāzē nevar rakstīt: lūdz spēles īpašniekam tev dot rediģēšanas tiesības, vai spēlē kā viesis.':'Neizdevās savienoties ar datubāzi. Mēģini vēlreiz.')}finally{$('lgok').disabled=false}}
 $('lgf').addEventListener('submit',lgSubmit);$('lgt0').onclick=()=>lgTab(0);$('lgt1').onclick=()=>lgTab(1);
 $('lgguest').onclick=()=>{useAcc(null);enterGame()};
-$('lgout').onclick=()=>{if(net)leaveOnline();save();if(ACC==='db'){const f=dbFlush();localStorage.removeItem('rfremdb');if(SB){sessionStorage.removeItem('rfsess');Promise.resolve(f).finally(()=>SB.auth.signOut().catch(()=>{}));UID=null;DBACC=null}}localStorage.removeItem('rfrem');useAcc(null);$('menu').classList.add('hide');$('login').classList.remove('hide');lgTab(0);drawLgArt()};
+$('lgout').onclick=()=>{if(net)leaveOnline();save();if(ACC==='db'){const f=dbFlush();localStorage.removeItem('rfremdb');if(SB){const tok=SBTOK;localStorage.removeItem('rfsbtok');sessionStorage.removeItem('rfsbtok');Promise.resolve(f).finally(()=>{SB.rpc('rf_logout',{p_token:tok}).then(()=>{},()=>{});if(SBTOK===tok)SBTOK=''});UID=null;DBACC=null}}localStorage.removeItem('rfrem');useAcc(null);$('menu').classList.add('hide');$('login').classList.remove('hide');lgTab(0);drawLgArt()};
 $('xout').onclick=()=>$('lgout').onclick();
 $('chico').innerHTML=ICO.medal();$('fsico').innerHTML=ICO.fs();$('xico').innerHTML=ICO.x();$('lgfico').innerHTML=ICO.fs();$('lgsico').innerHTML=ICO.snd(1);
 $('lgsnd').onclick=()=>{SV.opt.snd=SV.opt.snd?0:1;$('lgsico').innerHTML=ICO.snd(SV.opt.snd);save()};$('lgfs').onclick=()=>$('fsb').click();

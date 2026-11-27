@@ -205,6 +205,19 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
 .bar1 .lg{display:none}.bar1>*{white-space:nowrap}#rk .rkn{font-size:18px;color:#f2f2f2}#rk svg{width:22px;height:22px}
 #chb{font-size:0!important;gap:0}#chb span svg{width:24px;height:24px}#chb i{font-size:11px!important}
 .bar1 .xpw{flex:0 1 210px}#onl{flex:0 0 auto}
+.pss{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;margin-top:6px}.pss h3{margin:6px 0 4px}
+.skr{display:grid;grid-template-columns:26px 1fr 24px 120px 34px;align-items:center;gap:8px;padding:2px 0;font-size:16px;color:#f2f2f2}
+.ski svg{width:22px;height:22px;display:block}.skr button{width:22px;height:22px;min-height:22px;padding:0;background:#000;color:#fff;font:700 18px/1 Arial!important;border:1px solid #333}
+.skr .pips{margin:0}.skr .pips i{width:10px;height:14px}.skv{color:#5be04a;text-align:right;font-weight:400!important}
+.skpt{display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #ffffff14;color:#f2f2f2}.skpt b{font-weight:400!important}
+.pst2{font-size:16px!important}.pst2 dt{color:#f2f2f2!important}.pst2 dt::before{content:'';display:inline-block;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffd36a,#e9822b 60%,#9a4a10);margin-right:8px;vertical-align:-1px}.pst2 dd{color:#f2f2f2;font-weight:400}
+@media(max-width:900px){.pss{grid-template-columns:minmax(0,1fr)}}
+.xpc{width:42%}.xpb2{position:relative;height:16px;background:#0c0c0c;border-radius:8px;box-shadow:inset 0 1px 3px #000;overflow:hidden}.xpb2 i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#d6e04a,#9a9a14);border-radius:8px}.xpb2.t10 i{background:linear-gradient(#8fe33a,#3f8a14)}
+.xpb2 span{position:relative;display:block;text-align:center;font:700 13px/16px Arial!important;color:#fff;text-shadow:0 1px 1px #000}
+#lb .ct{color:#3be03b}#lb .lbn{color:#f2f2f2}#lb .lbon{color:#9be05a;font-size:12px}#lb td{padding:3px 6px}#lb .lv{font-size:0;margin-right:4px}#lb .lv svg{width:16px;height:16px;vertical-align:-2px}
+.setg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}@media(max-width:900px){.setg{grid-template-columns:1fr}}
+.usr{font-size:15px!important}.usr dt::before{display:none}.usr dt{color:#cfc6b6!important}
+.kb1 .sk{display:grid;grid-template-columns:1fr 110px;gap:8px;padding:1px 0;border:0}.kb1 .sk b{font:400 15px Arial!important;color:#f2f2f2}.kb1 .sk button{min-width:0!important;width:110px;min-height:22px;height:22px;background:#0c0c0c;border:1px solid #2a2a2a;color:#f2f2f2;text-align:left;padding:0 8px;font-size:14px}
 </style></head><body>
 <div class="wrap"><div class="screen">
 <canvas id="c" width="1280" height="720" aria-label="Spēles laukums"></canvas>
@@ -251,21 +264,22 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
    <span class="lbl">Ķiveres krāsa</span><div class="seg" id="skins"></div></div>
   <div>
    <div class="nmrow"><div><label class="lbl" for="nm">Segvārds</label><input id="nm" maxlength="14" autocomplete="off"></div><div><label class="lbl" for="cl">Klana birka</label><input id="cl" maxlength="4" autocomplete="off" placeholder="RF"></div></div>
-   <div class="stats" id="pst"></div>
-   <h3 id="skh">Prasmes</h3><div class="two" id="skl"></div>
-   <div class="acts"><button id="skr">Sadalīt punktus no jauna</button></div>
+   <div class="pss"><div><h3 id="skh">Prasmes</h3><div id="skl" class="skl1"></div><div class="acts"><button id="skr">Sadalīt punktus no jauna</button></div></div>
+    <div><h3>Statistika</h3><dl class="ppst pst2" id="pst"></dl></div></div>
    <h3>Ieroči</h3><div class="wgrid" id="wgrid"></div><div class="wdet" id="wdet"></div>
   </div></div>
  </section>
- <section id="t-set" class="hide">
-  <h3 style="margin-top:0">Taustiņi</h3><p class="m">Uzspied pogu un tad taustiņu. Bultiņas, atstarpe un Ctrl strādā vienmēr.</p><div class="two" id="kb"></div>
-  <div class="acts"><button id="kbr">Atjaunot noklusējumu</button></div>
-  <h3>Spēle</h3>
+ <section id="t-set" class="hide"><div class="setg">
+  <div><h3 style="margin-top:0">Lietotājs</h3><dl class="ppst usr" id="usr"></dl><div class="acts"><button id="usrout">Iziet no konta</button></div>
+   <p class="m" style="font-size:13px;margin-top:10px">Paroles netiek glabātas, tikai to šifrēts nospiedums. E-pastu neprasām. Spēlē nav īstas naudas.</p></div>
+  <div><h3 style="margin-top:0">Spēle</h3>
   <span class="lbl">Skaņa</span><div class="seg" data-o="snd"><button data-v="1">Ieslēgta</button><button data-v="0">Izslēgta</button></div>
   <span class="lbl">Daļiņas un šķembas</span><div class="seg" data-o="fx"><button data-v="1">Daudz</button><button data-v="0">Maz</button></div>
   <span class="lbl">Tēmēklis</span><div class="seg" data-o="ch"><button data-v="0">Aplis</button><button data-v="1">Krusts</button><button data-v="2">Punkts</button></div>
-  <span class="lbl">Tēmēkļa krāsa</span><div class="seg" data-o="cc"><button data-v="0">Balta</button><button data-v="1">Zaļa</button><button data-v="2">Sarkana</button></div>
- </section>
+  <span class="lbl">Tēmēkļa krāsa</span><div class="seg" data-o="cc"><button data-v="0">Balta</button><button data-v="1">Zaļa</button><button data-v="2">Sarkana</button></div></div>
+  <div><h3 style="margin-top:0">Taustiņi</h3><div id="kb" class="kb1"></div>
+  <div class="acts"><button id="kbr">Atjaunot</button></div><p class="m" style="font-size:13px">Uzspied lodziņu un tad taustiņu. Bultiņas, atstarpe un Ctrl strādā vienmēr.</p></div>
+ </div></section>
  <section id="t-shop" class="hide"><p class="m">Monētas nopelni kaujās. Labākie ieroči prasa augstāku līmeni.</p><div class="seg" id="shc"></div><div class="shop" id="shop"></div></section>
  <section id="t-map" class="hide"><p class="m">Piecas arēnas. Izvēlies karti un spēlē tur tiešsaistē vai ar botiem.</p><div class="maps" id="maps"></div></section>
  <section id="t-hof" class="hide">
@@ -1038,9 +1052,9 @@ function renderNet(){renderRooms();renderChat();$('onl').textContent=RM?`${Math.
 const hhmm=t=>{const d=new Date(t||Date.now());return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};let chOnlyPM=false;
 function renderChat(){const l=$('log');const L=chatLog.slice(-80).filter(c=>!chOnlyPM||c.pm);l.innerHTML=L.length?L.map(c=>c.sys?`<div class="sys"><span class="mod">[SISTĒMA]</span> ${esc(c.t)}</div>`:`<div class="${c.pm?'pm':''}"><b>${esc(c.n)}</b>${c.me&&!c.pm?' <small>(tu)</small>':''} <span class="cm">[${rankInfo(c.xp).i}] [${hhmm(c.ts)}]</span> ${esc(c.t)}</div>`).join(''):`<div class="cm">${chOnlyPM?'Privātu ziņu vēl nav. Uzspied uz spēlētāja, lai rakstītu viņam.':''}</div>`;l.scrollTop=l.scrollHeight}
 function renderProf(){const s=SV.st;$('nm').value=SV.name;$('cl').value=SV.clan||'';renderBody();renderWeps();renderChal();
- $('pst').innerHTML=[[s.g,'Kaujas'],[s.w,'Uzvaras'],[s.k,'Nogalināti'],[s.d,'Krita'],[(s.k/Math.max(1,s.d)).toFixed(2),'N/K attiecība'],[s.best,'Labākā sērija'],[s.caps,'Sagrābti karogi'],[s.wave,'Augstākais vilnis']].map(([v,l])=>`<div><b>${esc(v)}</b>${l}</div>`).join('');
+ $('pst').innerHTML=[[s.g,'Kaujas'],[s.w,'Uzvaras'],[s.k,'Nogalināti'],[s.d,'Krita'],[(s.k/Math.max(1,s.d)).toFixed(2),'N/K attiecība'],[s.best,'Labākā sērija'],[s.caps,'Sagrābti karogi'],[s.wave,'Augstākais vilnis']].map(([v,l])=>`<dt>${l}:</dt><dd>${esc(v)}</dd>`).join('');
  const fr=ptsFree();$('skh').textContent=`Prasmes · ${fr} brīvi punkti`;
- $('skl').innerHTML=SKL.map(([k,n,d])=>`<div class="sk"><div><b>${ICO[k]()}${n} ${sk(k)}/10</b><small>${d}</small><div class="pips">${Array.from({length:10},(_,i)=>`<i class="${i<sk(k)?'f':''}"></i>`).join('')}</div></div><button data-k="${k}" aria-label="Pievienot punktu: ${n}" ${fr<=0||sk(k)>=10?'disabled':''}>+</button></div>`).join('')+(ptsTotal()===0?'<p class="m" style="margin-top:8px">Par katru jaunu līmeni saņem 1 prasmes punktu un 5 banknotes.</p>':'');
+ $('skl').innerHTML=SKL.map(([k,n,d])=>`<div class="skr" title="${d}"><span class="ski">${ICO[k]()}</span><span class="skn2">${n}</span><button data-k="${k}" aria-label="Pievienot punktu: ${n}" ${fr<=0||sk(k)>=10?'disabled':''}>+</button><div class="pips">${Array.from({length:10},(_,i)=>`<i class="${i<sk(k)?'f':''}"></i>`).join('')}</div><b class="skv">+${sk(k)}</b></div>`).join('')+`<div class="skpt"><span>Prasmes punkti:</span><b>${fr}</b></div>`+(ptsTotal()===0?'<p class="m" style="margin-top:4px;font-size:13px">Par katru jaunu līmeni saņem 1 prasmes punktu un 5 banknotes.</p>':'');
  $('skins').innerHTML=SKINS.map((k,i)=>owns('s'+i)?`<button data-s="${i}" class="${SV.skin===i?'on':''}"><span class="sw" style="background:${k.c||T[0].d}"></span>${k.n}</button>`:'').join('')}
 let pvB=SV.body;
 function renderBody(){const c=$('skc');if(!c)return;const x=c.getContext('2d'),b=BODIES[pvB],o=pvB===0||!!SV.own['b'+pvB],L=rankInfo(SV.xp).i,sg=g;
@@ -1121,8 +1135,8 @@ function renderHof(){$('hl').innerHTML=SV.hof.length?SV.hof.map((h,i)=>`<tr><td>
  $('lbnote').textContent=dbl?'Īsta rangu tabula no datubāzes: visi reģistrētie spēlētāji.':'Tabulā ir tu, spēlētāji, kas šobrīd ir tiešsaistē, un izdomāti pretinieki. Ar datubāzi te būs visi reģistrētie spēlētāji.';
  const cl={};(dbl||[]).forEach(p=>{if(p.c){const k=p.c.toUpperCase();(cl[k]=cl[k]||{n:p.c,m:0,x:0});cl[k].m++;cl[k].x+=p.x}});const cs=Object.values(cl).sort((a,b)=>b.x-a.x);
  $('clb').innerHTML=cs.length?cs.map((c,i)=>`<tr><td>${i+1}</td><td><b class="ct">[${esc(c.n)}]</b></td><td class="num">${c.m}</td><td class="num">${c.x|0}</td></tr>`).join(''):'<tr><td colspan="4">Vēl nav neviena klana. Ieraksti klana birku profilā.</td></tr>';
- $('lb').innerHTML=l.map((p,i)=>`<tr class="${p.me?'me':''}"><td>${i+1}</td><td>${p.c?`<b class="ct">[${esc(p.c)}]</b>`:''}${esc(p.n)}${p.me?' (tu)':''}${p.on?' · tiešsaistē':''}</td><td>${lvTag(p.x)} ${rankInfo(p.x).n}</td><td class="num">${p.x|0}</td></tr>`).join('')}
-function renderSet(){$('kb2').innerHTML=ACTS.map(([a,n])=>`<span>${n}</span><button data-a="${a}">${waitKey===a?'Spied…':esc(kn(KY[a]))}</button>`).join('');$('vol').value=SV.opt.vol??80;$('volv').textContent=(SV.opt.vol??80)+'%';$('kb').innerHTML=ACTS.map(([a,n])=>`<div class="sk"><div><b>${n}</b></div><button data-a="${a}" style="min-width:120px">${waitKey===a?'Spied taustiņu…':esc(kn(KY[a]))}</button></div>`).join('');
+ const top=Math.max(1,...l.map(p=>p.x|0));$('lb').innerHTML=l.map((p,i)=>`<tr class="${p.me?'me':''}"><td class="num">${i+1}</td><td>${lvTag(p.x)} ${p.c?`<b class="ct">[${esc(p.c)}]</b> `:''}<b class="lbn">${esc(p.n)}</b>${p.me?' (tu)':''}${p.on?' <small class="lbon">● tiešsaistē</small>':''}</td><td>${rankInfo(p.x).n}</td><td class="xpc"><div class="xpb2${i<10?' t10':''}"><i style="width:${Math.max(2,Math.round((p.x|0)/top*100))}%"></i><span>${p.x|0}</span></div></td></tr>`).join('')}
+function renderSet(){{const r=rankInfo(SV.xp);$('usr').innerHTML=[['Segvārds',esc(SV.name)],['Konts',ACC==='db'?'Datubāzē ☁':ACC?'Šajā pārlūkā':'Viesis'],['Klans',SV.clan?esc(SV.clan):'—'],['Līmenis',r.i+' · '+r.n],['XP',SV.xp|0],['Monētas',SV.coins|0],['Banknotes',SV.notes|0]].map(([a,b])=>`<dt>${a}:</dt><dd>${b}</dd>`).join('');$('usrout').textContent=ACC?'Iziet no konta':'Ieiet vai reģistrēties'}$('kb2').innerHTML=ACTS.map(([a,n])=>`<span>${n}</span><button data-a="${a}">${waitKey===a?'Spied…':esc(kn(KY[a]))}</button>`).join('');$('vol').value=SV.opt.vol??80;$('volv').textContent=(SV.opt.vol??80)+'%';$('kb').innerHTML=ACTS.map(([a,n])=>`<div class="sk"><div><b>${n}</b></div><button data-a="${a}" style="min-width:120px">${waitKey===a?'Spied taustiņu…':esc(kn(KY[a]))}</button></div>`).join('');
  document.querySelectorAll('[data-o]').forEach(sg=>{for(const b of sg.children)b.classList.toggle('on',+b.dataset.v===SV.opt[sg.dataset.o])});
  $('help').innerHTML=[`<kbd>${esc(kn(KY.left))}</kbd> <kbd>${esc(kn(KY.right))}</kbd> skriet, <kbd>${esc(kn(KY.jump))}</kbd> vai <kbd>Atstarpe</kbd> lēkt`,`<kbd>${esc(kn(KY.down))}</kbd> vai <kbd>Ctrl</kbd> pietupties, tupus iet rāpus`,`<kbd>${esc(kn(KY.down))}</kbd> + <kbd>Atstarpe</kbd> nolēkt caur sijām`,'Pele tēmēt, kreisā poga šaut',
   '<kbd>1</kbd>–<kbd>0</kbd> vai ritenis mainīt ieroci',`<kbd>${esc(kn(KY.reload))}</kbd> pārlādēt, <kbd>${esc(kn(KY.gren))}</kbd> vai labā poga granāta`,`<kbd>${esc(kn(KY.mine))}</kbd> nolikt mīnu`,`<kbd>${esc(kn(KY.board))}</kbd> rezultāti, <kbd>${esc(kn(KY.pause))}</kbd> vai <kbd>Esc</kbd> izvēlne`].map(h=>`<span>${h}</span>`).join('');renderTop()}
@@ -1160,7 +1174,7 @@ $('ci').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});$('cs').o
  const tick=()=>{const d=new Date();$('clock').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()} ${hhmm()}`};tick();setInterval(tick,15000);
  const find=()=>{const v=$('cfind').value.trim().toLowerCase();if(!v)return;const p=lobbyPeers.find(q=>!(q.isMe&&q.sameTab)&&q.presence&&String(q.presence.n||'').toLowerCase()===v)||lobbyPeers.find(q=>!(q.isMe&&q.sameTab)&&q.presence&&String(q.presence.n||'').toLowerCase().includes(v));
   if(p){openPP(p.peer);$('cfind').value=''}else sysChat(RM?`Spēlētājs „${$('cfind').value.trim().slice(0,14)}” šobrīd nav tiešsaistē.`:'Meklēšana strādā tiešsaistē.')};
- document.querySelector('.bar1').addEventListener('click',e=>{if(e.target.closest('[data-goshop]'))document.querySelector('[data-t=shop]').click()});$('cfb').onclick=find;$('cfind').addEventListener('keydown',e=>{if(e.key==='Enter')find()});
+ document.querySelector('.bar1').addEventListener('click',e=>{if(e.target.closest('[data-goshop]'))document.querySelector('[data-t=shop]').click()});$('usrout').onclick=()=>$('lgout').onclick();$('cfb').onclick=find;$('cfind').addEventListener('keydown',e=>{if(e.key==='Enter')find()});
  $('rflt').onchange=()=>renderRooms();$('rref').onclick=()=>{renderNet();sysChat('Istabu saraksts atjaunots.')};$('rall').onclick=()=>{$('rflt').value='-1';renderRooms()}}
 $('skins').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;SV.skin=+b.dataset.s;save();renderProf()});
 $('skl').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b||ptsFree()<=0||sk(b.dataset.k)>=10)return;SV.sk[b.dataset.k]++;save();renderProf()});

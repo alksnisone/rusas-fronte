@@ -218,6 +218,24 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
 .setg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}@media(max-width:900px){.setg{grid-template-columns:1fr}}
 .usr{font-size:15px!important}.usr dt::before{display:none}.usr dt{color:#cfc6b6!important}
 .kb1 .sk{display:grid;grid-template-columns:1fr 110px;gap:8px;padding:1px 0;border:0}.kb1 .sk b{font:400 15px Arial!important;color:#f2f2f2}.kb1 .sk button{min-width:0!important;width:110px;min-height:22px;height:22px;background:#0c0c0c;border:1px solid #2a2a2a;color:#f2f2f2;text-align:left;padding:0 8px;font-size:14px}
+
+.bankg{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:18px}.bkh{font:700 16px Arial!important;color:#e8c9a0;margin:2px 0 6px}
+.bkrow{display:grid;grid-template-columns:34px 1fr 150px;align-items:center;gap:8px;padding:4px 0}.bkrow b{color:#5be04a;font-size:17px}.bkrow small{display:block;color:#f2f2f2;font-size:11px}.bkrow button{height:28px;min-height:28px}
+.bkrow .ic svg{width:30px;height:22px}.promo{display:flex;gap:6px;align-items:center}.promo input{flex:1 1 auto;width:auto;min-width:0}.promo label{flex:0 0 auto}.bkrow button:disabled{opacity:.55}.promo input{height:30px;min-height:30px}.promo button{height:30px;min-height:30px;white-space:nowrap}
+#wprev{width:100%;height:auto;background:radial-gradient(#4a3a26,#0c0a08);border:1px solid #000;margin-bottom:6px}#wopen{width:100%}
+.bkl{margin-top:14px;padding-top:8px;border-top:1px solid #ffffff14;color:#f2f2f2}.bklr{display:flex;gap:6px;align-items:center;margin-top:6px}.bklr>span{flex:1}.bklr button{min-height:28px;height:28px;width:34px;padding:0}.bklr .go{width:auto;padding:0 18px}.bkl small{color:var(--mute)}
+.clang{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:18px}.clhd{display:flex;gap:14px;align-items:center;margin-bottom:8px}#clemb{width:110px;height:110px;flex:0 0 auto}
+.clhd label{white-space:nowrap;color:#f2f2f2}.cltab{max-height:300px}.cltab td{padding:4px 6px}.cltab .ct{color:#3be03b}.cltab .rb{position:relative;height:12px;width:150px;background:#0c0c0c;border-radius:6px;box-shadow:inset 0 1px 3px #000;overflow:hidden}
+.cltab .rb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#ff8a3a,#c43a0a);border-radius:6px}.cltab .rb span{position:relative;display:block;text-align:center;font:700 11px/12px Arial!important;color:#fff;text-shadow:0 1px 1px #000}
+.cltab tr{cursor:pointer}.cltab tr.sel td{background:linear-gradient(#a87440,#7a4c22)}.clem svg{width:18px;height:18px;vertical-align:-3px}
+.clside{display:flex;flex-direction:column;gap:4px}.clside>button{width:100%}.clnew{display:flex;gap:6px}.clon{min-height:90px;max-height:120px}.cldesc{min-height:70px;padding:6px 8px;color:#f2f2f2;font-size:14px;background:#00000059;margin-top:8px}
+.whc{width:min(920px,100%);position:relative}.whc .x{position:absolute;top:6px;right:6px;min-height:26px;width:28px;padding:0;background:linear-gradient(#d8402e,#8a1a10);color:#fff}
+.whg{display:grid;grid-template-columns:1fr 1fr;gap:16px}.whp{width:100%;border-collapse:collapse;font:14px Arial}.whp td{padding:3px 6px;border-bottom:1px solid #ffffff10;color:#f0c24a}.whp td:last-child{text-align:right}.whp td:first-child{color:#f2f2f2}
+#whjack{width:100%;margin-top:8px}.whjn{display:block;text-align:center;color:#f2f2f2;font:400 17px Arial}
+.slots{display:flex;gap:10px;justify-content:center}.slot{width:30%;background:linear-gradient(#5a4a32,#2a2014);border:2px solid #000;box-shadow:inset 0 0 0 2px #7a6440}
+.whrow{display:flex;align-items:center;gap:14px;margin:12px 0}.whrow .go{flex:1}.whcost{color:#f2f2f2}.whcost b{color:#ff4a3a;font-size:20px}
+.whinfo{border:2px solid #2f8a2a;padding:10px;color:#f0c24a;text-align:center;font:15px/1.5 Arial;min-height:110px;background:#00000040}
+@media(max-width:900px){.bankg,.clang,.whg{grid-template-columns:1fr}}
 </style></head><body>
 <div class="wrap"><div class="screen">
 <canvas id="c" width="1280" height="720" aria-label="Spēles laukums"></canvas>
@@ -241,7 +259,7 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
 <div class="ov hide" id="menu">
  <div class="bar1"><span class="lg">Rūsas fronte</span><span id="rk"></span><div class="xpw"><span id="xp" style="font-size:14px"></span><div class="bar"><i id="xpb"></i></div></div><span class="coin" id="cn"></span><span class="note" id="nt" title="Banknotes: retāka valūta, nopelni ar līmeņiem un uzvarām"></span><span class="on1" id="onl">Savienojas…</span>
   <span class="acc" id="accn"></span><button id="lgout" title="Iziet no konta" style="min-height:26px;height:26px;font-size:13px">Iziet</button><span class="ib"><button id="chb" class="chb" title="Uzdevumi"><span id="chico"></span> Uzdevumi<i id="chn"></i></button><button id="sndb" aria-label="Skaņa">🔊</button><button id="fsb" title="Pilnekrāns" aria-label="Pilnekrāns"><span id="fsico"></span></button><button id="xout" class="xout" title="Iziet uz ieejas ekrānu" aria-label="Iziet uz ieejas ekrānu"><span id="xico"></span></button></span></div>
- <div class="tabs" id="tabs"><button data-t="kauja" class="on">Kauja</button><button data-t="prof">Profils</button><button data-t="set">Iestatījumi</button><button data-t="shop">Veikals</button><button data-t="map">Karte</button><button data-t="hof">Slavas zāle</button></div>
+ <div class="tabs" id="tabs"><button data-t="kauja" class="on">Kauja</button><button data-t="prof">Profils</button><button data-t="set">Iestatījumi</button><button data-t="shop">Veikals</button><button data-t="bank">Banka</button><button data-t="map">Karte</button><button data-t="clan">Klani</button><button data-t="hof">Slavas zāle</button></div>
  <div class="body">
  <section id="t-kauja">
   <div class="sub" id="ksub"><button data-v="on" class="on">Istabas tiešsaistē</button><button data-v="sp">Viens spēlētājs</button></div>
@@ -281,6 +299,24 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
   <div class="acts"><button id="kbr">Atjaunot</button></div><p class="m" style="font-size:13px">Uzspied lodziņu un tad taustiņu. Bultiņas, atstarpe un Ctrl strādā vienmēr.</p></div>
  </div></section>
  <section id="t-shop" class="hide"><p class="m">Monētas nopelni kaujās. Labākie ieroči prasa augstāku līmeni.</p><div class="seg" id="shc"></div><div class="shop" id="shop"></div></section>
+
+ <section id="t-bank" class="hide"><div class="bankg">
+  <div><div class="bkh">Monētas par banknotēm</div><div id="bkc"></div></div>
+  <div><div class="bkh">Banknotes par monētām</div><div id="bkn"></div></div>
+  <div class="bkr"><div class="promo"><input id="pcode" maxlength="16" placeholder="Ievadi promo kodu" autocomplete="off"><button id="pgo">Aktivizēt</button></div>
+   <div class="bkh" style="margin-top:14px">Laimes rats</div><canvas id="wprev" width="300" height="110"></canvas><button class="go" id="wopen">Griezt ratu · 2 banknotes</button>
+   <div class="bkl"><span>Pirkt līmeņus ātrākai izaugsmei</span><div class="bklr"><span>Daudzums: <b id="lvq">1</b></span><button id="lvm" aria-label="Mazāk">−</button><button id="lvp" aria-label="Vairāk">+</button><button class="go" id="lvbuy">Pirkt</button></div><small id="lvc"></small></div>
+   <p class="m" style="font-size:13px;margin-top:10px">Bankā ir tikai spēles valūta. Īstu naudu spēlē nevar ne iemaksāt, ne izņemt.</p></div>
+ </div></section>
+ <section id="t-clan" class="hide"><div class="clang">
+  <div><div class="clhd"><canvas id="clemb" width="120" height="120"></canvas><div><p class="m">Šeit redzami visi klani pēc kopējā reitinga. Klana birka ir līdz 4 zīmēm, un tā parādās pirms tava vārda.</p>
+   <div class="promo"><label for="clq">Meklēt klanu pēc birkas:</label><input id="clq" maxlength="4" autocomplete="off"><button id="clqb">Meklēt</button></div></div></div>
+   <div class="bkh">Klanu reitings</div><div class="box rooms cltab"><table><tbody id="cll"></tbody></table></div></div>
+  <div class="clside"><button class="go" id="clall">Klanu saraksts</button><button id="clnew">Izveidot klanu</button>
+   <div class="clnew hide" id="clnf"><input id="clt" maxlength="4" placeholder="Birka, piem. RF" autocomplete="off"><button class="go" id="clmk">Izveidot</button></div>
+   <div class="bkh" style="margin-top:12px">Tiešsaistē esošie biedri:</div><div class="box plist clon" id="clon"></div>
+   <div class="box cldesc" id="cldesc"></div><button id="cljoin">Pievienoties klanam</button></div>
+ </div></section>
  <section id="t-map" class="hide"><p class="m">Piecas arēnas. Izvēlies karti un spēlē tur tiešsaistē vai ar botiem.</p><div class="maps" id="maps"></div></section>
  <section id="t-hof" class="hide">
   <h3 style="margin-top:0">Rangu tabula</h3><div class="box rooms"><table><thead><tr><th>#</th><th>Karavīrs</th><th>Līmenis</th><th class="num">XP</th></tr></thead><tbody id="lb"></tbody></table></div>
@@ -309,6 +345,11 @@ kbd{font:700 13px 'Barlow Condensed',sans-serif;background:#1c1915;border:1px so
  <p>Neveiksmīgu uzdevumu var izlaist par banknotēm, un tā vietā nāks cits.</p>
  <p>Kopienas uzdevumos skaitās visu tiešsaistē esošo spēlētāju kopējais progress. Kad mērķis sasniegts, balva ir no 10% līdz 100% atkarībā no tava ieguldījuma.</p></div><canvas id="chc" width="150" height="190"></canvas></div>
 </div></div>
+<div class="ov mid hide" id="wheel"><div class="card whc"><button class="x" id="whx" aria-label="Aizvērt">✕</button>
+ <div class="whg"><div><table class="whp" id="whp"></table><canvas id="whjack" width="340" height="190"></canvas><b class="whjn">Rūsas leģenda · ieroča skins</b></div>
+ <div><div class="slots"><canvas class="slot" width="110" height="140"></canvas><canvas class="slot" width="110" height="140"></canvas><canvas class="slot" width="110" height="140"></canvas></div>
+  <div class="whrow"><button class="go" id="whspin">Griezt ratu!</button><span class="whcost"><b>− 2</b> banknotes</span></div>
+  <div class="whinfo" id="whinfo"></div></div></div></div></div>
 <div class="ov mid hide" id="pp"><div class="card ppc"><button class="x" id="ppx" aria-label="Aizvērt">✕</button>
  <div class="ppg"><div class="ppl"><div class="ppn" id="ppn"></div><canvas id="ppcv" width="240" height="280"></canvas><div class="ppcur" id="ppcur"></div><button class="go" id="ppm">💬 Privāta ziņa</button></div>
  <div><h3 style="margin-top:0">Prasmes</h3><div id="ppsk"></div><h3>Ieroči</h3><div class="wgrid" id="ppw"></div></div>
@@ -413,16 +454,17 @@ const WSK=[{n:'Rūpnīcas',d:'Oriģinālais tērauds un koks.',p:0},
  {n:'Nakts operācija',d:'Matēti melns ar tumši zilu.',p:2000,pal:['#0c0d10','#17191f','#252a36','#4a5a7a','#101216','#1b1e26','#2a3040','#0c0d10','#17191f','#2a3040']},
  {n:'Neons',d:'Violets korpuss ar spīdošām ciāna līnijām.',p:15,cur:'n',pal:['#1a0f2e','#3a1a6a','#6a2ab0','#4af0ff','#1a0f2e','#4a1a8a','#8a3ad0','#1a0f2e','#3a1a6a','#4af0ff']},
  {n:'Asinssarkans',d:'Melns un tumši sarkans.',p:25,cur:'n',pal:['#120606','#5a0c0c','#8a1414','#ff5a4a','#1a0808','#6a1010','#a01c1c','#120606','#5a0c0c','#c02a2a']},
- {n:'Zelts',d:'Pulēts zelts ar melnām detaļām.',p:40,cur:'n',pal:['#5a4210','#a8801e','#d9b23a','#fff2a8','#3a2a0a','#8a6a18','#c4a030','#5a4210','#a8801e','#f0d060']}];
+ {n:'Zelts',d:'Pulēts zelts ar melnām detaļām.',p:40,cur:'n',pal:['#5a4210','#a8801e','#d9b23a','#fff2a8','#3a2a0a','#8a6a18','#c4a030','#5a4210','#a8801e','#f0d060']},
+ {n:'Rūsas leģenda',d:'Tikai laimes ratā. Kvēlojoša rūsa ar melnu tēraudu.',p:1,cur:'x',pal:['#140a06','#3a1408','#ff6a1a','#ffd27a','#0c0604','#5a200c','#e0501a','#140a06','#3a1408','#ffb040']}];
 const SKL=[['acc','Precizitāte','Mazāka izkliede, −5% par punktu'],['str','Spēks','Lodes nodara +4% bojājumu'],['hp','Izturība','Plus 10 veselības'],['def','Aizsardzība','Saņem −3% bojājumu'],['ex','Sprādzieni','Granātas, raķetes un mīnas +6%'],['luck','Veiksme','3% iespēja uz dubultu trāpījumu']];
 const ACTS=[['left','Pa kreisi','KeyA'],['right','Pa labi','KeyD'],['jump','Lēkt','KeyW'],['down','Pietupties (ar lēcienu nolēkt)','KeyS'],['reload','Pārlādēt','KeyR'],['gren','Granāta','KeyG'],['mine','Mīna','KeyF'],['board','Rezultāti','Tab'],['pause','Izvēlne','KeyP'],['mute','Skaņa','KeyM']];
 const LB=[['Tērauda Vilks',52000],['Rūsganais',41800],['Nakts Pūce',33500],['Ledus Lācis',26200],['Kapteinis Kaija',19800],['Dzelzs Ezis',14600],['Šahtas Sesks',10400],['Doku Vanags',7300],['Klusais Stārķis',4900],['Purva Lūsis',3100],['Sarkanā Zīle',1800],['Jaunais Bebrs',700]];
 // saglabāšana
-const DEF=()=>({xp:0,coins:0,name:'Karotājs',own:{},skin:0,body:0,wsk:{},clan:'',notes:3,ch:{},wk:{},st:{g:0,w:0,k:0,d:0,best:0,wave:0,caps:0},hof:[],sk:{},keys:{},opt:{snd:1,fx:1,ch:0,cc:0,vol:80,shk:1,hh:0}});
+const DEF=()=>({xp:0,coins:0,name:'Karotājs',own:{},skin:0,body:0,wsk:{},clan:'',notes:3,ch:{},wk:{},st:{g:0,w:0,k:0,d:0,best:0,wave:0,caps:0},hof:[],sk:{},keys:{},promo:{},spins:0,spxp:{},opt:{snd:1,fx:1,ch:0,cc:0,vol:80,shk:1,hh:0}});
 let SV=DEF(),ACC=null;
 function applySave(o){const nv=(v,d)=>typeof v==='number'&&isFinite(v)?v:d;const keys=SV.keys;for(const k in SV)delete SV[k];Object.assign(SV,DEF());
  try{if(o&&typeof o==='object')Object.assign(SV,o,{st:Object.assign(SV.st,o.st||{}),opt:Object.assign(SV.opt,o.opt||{})})}catch(e){}
- for(const k of['own','ch','wsk','wk','sk','keys'])if(!SV[k]||typeof SV[k]!=='object')SV[k]={};if(!Array.isArray(SV.hof))SV.hof=[];
+ for(const k of['own','ch','wsk','wk','sk','keys','promo','spxp'])if(!SV[k]||typeof SV[k]!=='object')SV[k]={};if(!Array.isArray(SV.hof))SV.hof=[];
  SV.xp=Math.max(0,nv(SV.xp,0));SV.coins=Math.max(0,nv(SV.coins,0));SV.notes=Math.max(0,nv(SV.notes,0));if(typeof SV.name!=='string')SV.name='Karotājs';
  if(!BODIES[SV.body]||!(SV.body===0||SV.own['b'+SV.body]))SV.body=0;SV.body|=0;
  const nk=SV.keys;for(const k in keys)delete keys[k];Object.assign(keys,nk);SV.keys=keys;for(const[a,,d]of ACTS)keys[a]=keys[a]||d;for(const[k]of SKL)SV.sk[k]=SV.sk[k]||0}
@@ -518,7 +560,7 @@ function CH(t,v,x){x=x||{};for(let pi=0;pi<PER.length;pi++){const st=chState(pi)
 function chComm(){const st=chState(3);return{id:st.id,p:st.p.slice()}}
 function commTotals(){const st=chState(3),tot=st.p.slice(),mx=st.p.slice();for(const p of(typeof lobbyPeers!=='undefined'?lobbyPeers:[])){if(p.isMe&&p.sameTab)continue;const c=p.presence&&p.presence.cc;if(!c||c.id!==st.id||!Array.isArray(c.p))continue;c.p.slice(0,3).forEach((v,i)=>{v=Math.max(0,num(v,0));tot[i]+=v;mx[i]=Math.max(mx[i],v)})}return{tot,mx}}
 let saveT=0;const save=()=>{try{localStorage.setItem(ACC?'rf3:'+ACC:'rf3',JSON.stringify(SV))}catch(e){}if(typeof dbQueue==='function')dbQueue()};
-const wal=it=>it.cur==='n'?(SV.notes|0):SV.coins,pay=it=>{if(it.cur==='n')SV.notes-=it.p;else SV.coins-=it.p},price=it=>it.cur==='n'?it.p+' banknotes':it.p+' monētas';
+const wal=it=>it.cur==='x'?0:it.cur==='n'?(SV.notes|0):SV.coins,pay=it=>{if(it.cur==='n')SV.notes-=it.p;else SV.coins-=it.p},price=it=>it.cur==='x'?'tikai laimes ratā':it.cur==='n'?it.p+' banknotes':it.p+' monētas';
 const owns=id=>id==='w0'||id==='w2'||id==='s0'||!!SV.own[id];
 const sk=k=>SV.sk[k]||0;
 // karte
@@ -1141,7 +1183,7 @@ function renderSet(){{const r=rankInfo(SV.xp);$('usr').innerHTML=[['Segvārds',e
  $('help').innerHTML=[`<kbd>${esc(kn(KY.left))}</kbd> <kbd>${esc(kn(KY.right))}</kbd> skriet, <kbd>${esc(kn(KY.jump))}</kbd> vai <kbd>Atstarpe</kbd> lēkt`,`<kbd>${esc(kn(KY.down))}</kbd> vai <kbd>Ctrl</kbd> pietupties, tupus iet rāpus`,`<kbd>${esc(kn(KY.down))}</kbd> + <kbd>Atstarpe</kbd> nolēkt caur sijām`,'Pele tēmēt, kreisā poga šaut',
   '<kbd>1</kbd>–<kbd>0</kbd> vai ritenis mainīt ieroci',`<kbd>${esc(kn(KY.reload))}</kbd> pārlādēt, <kbd>${esc(kn(KY.gren))}</kbd> vai labā poga granāta`,`<kbd>${esc(kn(KY.mine))}</kbd> nolikt mīnu`,`<kbd>${esc(kn(KY.board))}</kbd> rezultāti, <kbd>${esc(kn(KY.pause))}</kbd> vai <kbd>Esc</kbd> izvēlne`].map(h=>`<span>${h}</span>`).join('');renderTop()}
 function renderAll(){renderTop();renderRooms();renderProf();renderShop();renderMaps();renderHof();renderSet();renderNet()}
-$('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;for(const x of $('tabs').children)x.classList.toggle('on',x===b);for(const t of['kauja','prof','set','shop','map','hof'])$('t-'+t).classList.toggle('hide',t!==b.dataset.t);if(b.dataset.t==='map')renderMaps()});
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;for(const x of $('tabs').children)x.classList.toggle('on',x===b);for(const t of['kauja','prof','set','shop','bank','map','clan','hof'])$('t-'+t).classList.toggle('hide',t!==b.dataset.t);if(b.dataset.t==='map')renderMaps();if(b.dataset.t==='bank')renderBank();if(b.dataset.t==='clan')renderClans()});
 const segPick=(id,fn)=>$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!b.dataset.v)return;for(const x of $(id).children)x.classList.toggle('on',x===b);fn(b.dataset.v)});
 segPick('ksub',v=>{flt=v;room=0;renderRooms()});segPick('dif',v=>difI=+v);
 document.querySelectorAll('[data-o]').forEach(sg=>sg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;SV.opt[sg.dataset.o]=+b.dataset.v;save();renderSet()}));
@@ -1167,6 +1209,71 @@ $('nm').addEventListener('input',e=>{if(ACC){e.target.value=SV.name;return}SV.na
  const id=x.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){const n=(R()-.5)*26;d[i]+=n;d[i+1]+=n*.8;d[i+2]+=n*.6}x.putImageData(id,0,0);
  const v=x.createRadialGradient(W/2,H/2,H*.3,W/2,H/2,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');x.fillStyle=v;x.fillRect(0,0,W,H);
  const u=c.toDataURL('image/jpeg',.82);const m=document.getElementById('menu');if(m&&u.length>1000){m.style.background=`url(${u}) center/cover no-repeat, #1a120b`}}catch(e){}})();
+
+// Banka (tikai spēles valūta), laimes rats un klani
+const BKC=[[2500,10,0],[7500,25,2500],[20000,60,5000],[50000,140,25000]],BKN=[[10,6000,0],[25,14000,5],[60,32000,15],[150,75000,50]];
+const PROMO={RUSA2026:{c:1000,n:0},FRONTE:{c:0,n:5},SVEIKS:{c:500,n:1}};
+let lvQ=1;const lvCost=q=>q*40;
+function renderBank(){$('bkc').innerHTML=BKC.map(([c,n,b],i)=>`<div class="bkrow"><span class="ic">${ICO.coin()}</span><div><b>${c}</b>${b?`<small>+${b} dāvanā</small>`:''}</div><button data-bkc="${i}" ${SV.notes<n?'disabled':''}>${n} banknotes</button></div>`).join('');
+ $('bkn').innerHTML=BKN.map(([n,c,b],i)=>`<div class="bkrow"><span class="ic">${ICO.note()}</span><div><b>${n}</b>${b?`<small>+${b} dāvanā</small>`:''}</div><button data-bkn="${i}" ${SV.coins<c?'disabled':''}>${c} monētas</button></div>`).join('');
+ $('lvq').textContent=lvQ;const can=rankInfo(SV.xp).i+lvQ<=LVMAX;$('lvc').textContent=can?`Cena: ${lvCost(lvQ)} banknotes. Prasmes punktus un banknotes par līmeni saņem kā parasti.`:'Tik daudz līmeņu vairs nevar nopirkt.';$('lvbuy').disabled=!can||SV.notes<lvCost(lvQ);
+ drawWheelPrev()}
+function bankDone(t){save();renderTop();renderBank();sysChat(t)}
+$('t-bank').addEventListener('click',e=>{const a=e.target.closest('[data-bkc]'),b=e.target.closest('[data-bkn]');
+ if(a){const[c,n,x]=BKC[+a.dataset.bkc];if(SV.notes<n)return;SV.notes-=n;SV.coins+=c+x;bankDone(`Banka: +${c+x} monētas par ${n} banknotēm.`)}
+ if(b){const[n,c,x]=BKN[+b.dataset.bkn];if(SV.coins<c)return;SV.coins-=c;SV.notes=(SV.notes|0)+n+x;bankDone(`Banka: +${n+x} banknotes par ${c} monētām.`)}});
+$('lvm').onclick=()=>{lvQ=Math.max(1,lvQ-1);renderBank()};$('lvp').onclick=()=>{lvQ=Math.min(10,lvQ+1);renderBank()};
+$('lvbuy').onclick=()=>{const L=rankInfo(SV.xp).i,c=lvCost(lvQ);if(L+lvQ>LVMAX||SV.notes<c)return;SV.notes-=c;addXP(Math.max(0,xpFor(L+lvQ)-SV.xp),1);bankDone(`Nopirkti ${lvQ} līmeņi. Tagad tev ir ${rankInfo(SV.xp).i}. līmenis.`)};
+$('pgo').onclick=()=>{const k=$('pcode').value.trim().toUpperCase(),p=PROMO[k];$('pcode').value='';if(!p)return sysChat('Šāda promo koda nav.');if(SV.promo[k])return sysChat('Šis kods jau ir izmantots.');SV.promo[k]=1;SV.coins+=p.c;SV.notes=(SV.notes|0)+p.n;bankDone(`Promo kods aktivizēts: ${p.c?'+'+p.c+' monētas ':''}${p.n?'+'+p.n+' banknotes':''}`)};
+// laimes rats
+const WPR=[{t:'c',v:300,p:80.5,l:'300 monētas'},{t:'c',v:750,p:5,l:'750 monētas'},{t:'c',v:1250,p:2,l:'1250 monētas'},{t:'n',v:4,p:5.5,l:'4 banknotes'},{t:'n',v:6,p:2,l:'6 banknotes'},{t:'x',v:0,p:2.5,l:'XP: 2,5–6,9% līmeņa'},{t:'s',v:0,p:2.47,l:'Nejaušs ieroča skins'},{t:'j',v:0,p:.03,l:'Rūsas leģenda (skins)'}];
+const WJACK=1667;
+function prizeIcon(x,t,w,h){x.save();x.translate(w/2,h/2);if(t==='c'){for(let i=2;i>=0;i--){const y=i*-7+6;const gr=x.createLinearGradient(0,y-8,0,y+8);gr.addColorStop(0,'#ffe9a0');gr.addColorStop(.5,'#d9a332');gr.addColorStop(1,'#7a5a14');x.fillStyle=gr;x.beginPath();x.ellipse(0,y,26,9,0,0,7);x.fill();x.strokeStyle='#5a400c';x.lineWidth=1.5;x.stroke()}}
+ else if(t==='n'){for(let i=0;i<3;i++){x.fillStyle=['#2e6a24','#3f8a2e','#5aaa3a'][i];x.fillRect(-26,10-i*7,52,14);x.strokeStyle='#183a12';x.strokeRect(-26,10-i*7,52,14)}x.fillStyle='#bfe8a0';x.font='bold 11px Arial';x.textAlign='center';x.fillText('RF',0,-1)}
+ else if(t==='x'){x.fillStyle='#3be03b';x.font='bold 30px Arial';x.textAlign='center';x.textBaseline='middle';x.fillText('XP',0,0)}
+ else{const sg=g;try{g=x;x.scale(t==='j'?1.7:1.5,t==='j'?1.7:1.5);x.translate(-16,0);gun(WEP[t==='j'?4:2],t==='j'?8:5)}finally{g=sg}}x.restore()}
+function drawSlot(c,t){const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);const gr=x.createLinearGradient(0,0,0,c.height);gr.addColorStop(0,'#c9c48a');gr.addColorStop(1,'#9a965e');x.fillStyle=gr;x.fillRect(10,14,c.width-20,c.height-28);if(t)prizeIcon(x,t,c.width,c.height)}
+function drawWheelPrev(){const c=$('wprev');if(!c)return;const x=c.getContext('2d');x.clearRect(0,0,300,110);['c','n','j'].forEach((t,i)=>{x.save();x.translate(i*100,0);x.fillStyle='#00000055';x.fillRect(8,8,84,94);prizeIcon(x,t,100,110);x.restore()})}
+function openWheel(){$('whp').innerHTML=WPR.map(p=>`<tr><td>${p.l}</td><td>${String(p.p).replace('.',',')} %</td></tr>`).join('');
+ const j=$('whjack'),x=j.getContext('2d');x.clearRect(0,0,340,190);const gr=x.createRadialGradient(170,95,10,170,95,170);gr.addColorStop(0,'#5a3a1a');gr.addColorStop(1,'#0c0806');x.fillStyle=gr;x.fillRect(0,0,340,190);x.save();x.translate(170,100);x.scale(3.2,3.2);const sg=g;try{g=x;gun(WEP[4],8)}finally{g=sg}x.restore();
+ document.querySelectorAll('#wheel .slot').forEach(c=>drawSlot(c,'c'));whInfo();$('wheel').classList.remove('hide')}
+function whInfo(t){$('whinfo').innerHTML=(t?`<b style="color:#9be05a">${esc(t)}</b><br><br>`:'')+`Griez ratu, ja jūties veiksmīgs, par 2 banknotēm.<br>Garantēts galvenais laimests ${WJACK}. griezienā (tev: ${SV.spins|0}).<br>XP balvas var laimēt divreiz dienā.`;$('whspin').disabled=(SV.notes|0)<2}
+let spinning=false;
+$('whspin').onclick=()=>{if(spinning||(SV.notes|0)<2)return;SV.notes-=2;SV.spins=(SV.spins|0)+1;spinning=true;$('whspin').disabled=true;
+ let r=Math.random()*100,pr=WPR[0];for(const p of WPR){if(r<p.p){pr=p;break}r-=p.p}if(SV.spins>=WJACK&&!SV.own['k4_8'])pr=WPR[7];
+ const day=new Date().toDateString();if(pr.t==='x'&&(SV.spxp[day]|0)>=2)pr=WPR[0];
+ const sl=[...document.querySelectorAll('#wheel .slot')],ts=['c','n','x','s','c','n'];let k=0;const iv=setInterval(()=>{k++;sl.forEach((c,i)=>drawSlot(c,ts[(k+i*2)%ts.length]));if(k>16){clearInterval(iv);finish()}},70);
+ function finish(){let msg='';if(pr.t==='c'){SV.coins+=pr.v;msg=`Tu laimēji ${pr.v} monētas!`}else if(pr.t==='n'){SV.notes+=pr.v;msg=`Tu laimēji ${pr.v} banknotes!`}
+  else if(pr.t==='x'){SV.spxp={[day]:(SV.spxp[day]|0)+1};const L=rankInfo(SV.xp).i,span=Math.max(200,xpFor(Math.min(LVMAX,L+1))-xpFor(L)),v=Math.round(span*(.025+Math.random()*.044));addXP(v,1);msg=`Tu laimēji ${v} XP!`}
+  else if(pr.t==='s'){const opts=[];for(let w=0;w<WEP.length;w++)for(let j=1;j<8;j++)if(!SV.own['k'+w+'_'+j])opts.push([w,j]);if(opts.length){const[w,j]=opts[Math.random()*opts.length|0];SV.own['k'+w+'_'+j]=1;msg=`Tu laimēji skinu „${WSK[j].n}” ierocim ${WEP[w].n}!`}else{SV.notes+=6;msg='Tev jau ir visi skini, tāpēc saņem 6 banknotes.'}}
+  else{SV.own['k4_8']=1;SV.coins+=1000;msg='GALVENAIS LAIMESTS! Rūsas leģenda skins un 1000 monētas!'}
+  sl.forEach(c=>drawSlot(c,pr.t==='c'||pr.t==='n'||pr.t==='x'?pr.t:pr.t==='j'?'j':'s'));save();renderTop();renderBank();whInfo(msg);spinning=false;sysChat('Laimes rats: '+msg)}};
+$('wopen').onclick=openWheel;$('whx').onclick=()=>$('wheel').classList.add('hide');
+// klani
+let clSel='';
+function clanList(){const m={};const add=(c,x,n,on)=>{if(typeof c!=='string'||!c)return;const k=c.toUpperCase().slice(0,4);(m[k]=m[k]||{t:c.slice(0,4),x:0,m:0,on:0,names:[]});m[k].x+=x;m[k].m++;if(on)m[k].on++;if(n&&m[k].names.length<20)m[k].names.push(n)};
+ const seen=new Set();for(const p of LBDB||[]){add(p.c,num(p.xp,0),p.n,0);seen.add(String(p.n))}
+ for(const p of lobbyPeers){const q=p.presence||{};if(!seen.has(String(q.n)))add(q.c,num(q.xp,0),q.n,1);else if(q.c){const k=String(q.c).toUpperCase().slice(0,4);if(m[k])m[k].on++}}
+ if(SV.clan&&!seen.has(SV.name)&&!lobbyPeers.some(p=>p.isMe&&p.sameTab&&p.presence&&p.presence.c))add(SV.clan,SV.xp,SV.name,1);
+ return Object.values(m).map(c=>({...c,r:Math.round(c.x/100)})).sort((a,b)=>b.r-a.r)}
+function drawEmblem(){const c=$('clemb'),x=c.getContext('2d'),W=120;x.clearRect(0,0,W,W);x.save();x.translate(60,60);
+ const gr=x.createRadialGradient(0,-10,5,0,0,56);gr.addColorStop(0,'#6a2a14');gr.addColorStop(1,'#1a0a06');x.fillStyle=gr;x.beginPath();for(let i=0;i<16;i++){const a=i/16*Math.PI*2,r=i%2?50:56;x.lineTo(Math.cos(a)*r,Math.sin(a)*r)}x.closePath();x.fill();x.strokeStyle='#c4b49a';x.lineWidth=3;x.stroke();
+ x.beginPath();x.arc(0,0,38,0,7);x.strokeStyle='#e9822b';x.lineWidth=2;x.stroke();x.fillStyle='#f2f2f2';x.font='bold 30px "Black Ops One",Impact,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText((clSel||SV.clan||'RF').slice(0,4).toUpperCase(),0,2);x.restore()}
+function renderClans(){const L=clanList(),top=Math.max(1,...L.map(c=>c.r));const q=$('clq').value.trim().toUpperCase();const F=q?L.filter(c=>c.t.toUpperCase().includes(q)):L;
+ $('cll').innerHTML=F.length?F.map((c,i)=>`<tr data-cl="${esc(c.t)}" class="${c.t===clSel?'sel':''}"><td class="num">${i+1}</td><td><b class="ct">[${esc(c.t)}]</b></td><td>${c.m} ${c.m===1?'biedrs':'biedri'}</td><td class="clem">${ICO.medal()}</td><td><div class="rb"><i style="width:${Math.max(3,Math.round(c.r/top*100))}%"></i><span>${c.r}</span></div></td></tr>`).join(''):`<tr><td>${q?'Neviens klans neatbilst.':'Vēl nav neviena klana. Izveido pirmo!'}</td></tr>`;
+ const c=L.find(o=>o.t===clSel)||L.find(o=>SV.clan&&o.t.toUpperCase()===SV.clan.toUpperCase());if(c&&!clSel)clSel=c.t;
+ const on=lobbyPeers.filter(p=>p.presence&&typeof p.presence.c==='string'&&clSel&&p.presence.c.toUpperCase()===clSel.toUpperCase());
+ $('clon').innerHTML=on.length?on.map(p=>`<div class="pli"><span>${esc(String(p.presence.n||'').slice(0,14))}</span>${lvTag(p.presence.xp)}</div>`).join(''):'<div><small style="display:block">Neviens no šī klana nav tiešsaistē.</small></div>';
+ const cur=SV.clan&&clSel&&SV.clan.toUpperCase()===clSel.toUpperCase();
+ $('cldesc').innerHTML=c?`<b>[${esc(c.t)}]</b><br>Biedri: ${c.m} · Reitings: ${c.r}<br>${c.names.slice(0,8).map(esc).join(', ')}`:'Izvēlies klanu sarakstā.';
+ $('cljoin').textContent=cur?'Pamest klanu':'Pievienoties klanam';$('cljoin').disabled=!clSel&&!SV.clan;drawEmblem()}
+function setClan(t){SV.clan=t;$('cl').value=t;save();lobbyPres();renderClans();renderHof()}
+$('cll').addEventListener('click',e=>{const r=e.target.closest('tr[data-cl]');if(r){clSel=r.dataset.cl;renderClans()}});
+$('clqb').onclick=renderClans;$('clq').addEventListener('keydown',e=>{if(e.key==='Enter')renderClans()});$('clall').onclick=()=>{$('clq').value='';$('clnf').classList.add('hide');renderClans()};
+$('clnew').onclick=()=>{$('clnf').classList.toggle('hide');$('clt').focus()};
+$('clmk').onclick=()=>{const t=$('clt').value.trim();if(!/^[\p{L}\p{N}]{2,4}$/u.test(t))return sysChat('Klana birkai jābūt 2–4 burtiem vai cipariem.');if(clanList().some(c=>c.t.toUpperCase()===t.toUpperCase()))return sysChat('Šāds klans jau ir. Pievienojies tam vai izvēlies citu birku.');
+ clSel=t;$('clt').value='';$('clnf').classList.add('hide');setClan(t);sysChat(`Klans [${t}] izveidots. Tu esi tā dibinātājs.`)};
+$('cljoin').onclick=()=>{if(SV.clan&&clSel&&SV.clan.toUpperCase()===clSel.toUpperCase()){setClan('');sysChat('Tu pameti klanu.')}else if(clSel){setClan(clSel);sysChat(`Tu pievienojies klanam [${clSel}].`)}};
 $('ci').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});$('cs').onclick=sendChat;
 {const EM=['😀','😂','😎','😡','😢','😮','👍','👎','🔥','💀','🎯','🏆'];$('emo').innerHTML=EM.map(e=>`<button data-e="${e}" aria-label="Emocijzīme ${e}">${e}</button>`).join('');
  $('emo').onclick=e=>{const b=e.target.closest('button[data-e]');if(!b)return;const c=$('ci');c.value=(c.value+b.dataset.e).slice(0,140);c.focus()};
